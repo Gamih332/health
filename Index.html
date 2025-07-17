@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>نادي الحياة الصحية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ✅ حاوية الصفحة */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: transparent;
+      position: relative;
+      z-index: 0;
+    }
+
+    /* ✅ خلفية الفيديو */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* ✅ الشريط العلوي */
+    header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      z-index: 10;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-container img {
+      height: 40px;
+      border-radius: 8px;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: gold;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* ✅ زر البرغر */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background-color: gold;
+      border-radius: 2px;
+    }
+
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: rgba(0, 0, 0, 0.85);
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .mobile-nav a {
+      color: gold;
+      padding: 10px;
+      text-decoration: none;
+    }
+
+    .mobile-nav a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ✅ المقدمة */
+    .hero-content {
+      text-align: center;
+      padding: 120px 20px 60px;
+      color: white;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #388e3c;
+    }
+
+    /* ✅ محتوى الصفحة */
+    .content {
+      flex: 1;
+      padding: 60px 20px 40px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 40px auto 0;
+    }
+
+    .feature-box {
+      width: 280px;
+      padding: 25px 20px;
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 0;
+      border: 3px solid #4caf50;
+      margin-bottom: 15px;
+    }
+
+    .feature-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #2e7d32;
+    }
+
+    .feature-desc {
+      font-size: 15px;
+      color: #8fbe91bf;
+      line-height: 1.6;
+    }
+
+    /* ✅ الفوتر */
+    footer {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 20px;
+      text-align: center;
+      color: #eee;
+      font-size: 14px;
+      border-top: 2px solid #a5d6a7;
+      z-index: 2;
+    }
+
+    /* ✅ للجوال */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-nav.show {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ✅ خلفية الفيديو -->
+  <video class="video-background" src="fitness-promo.mp4" autoplay muted loop playsinline></video>
+
+  <!-- ✅ الهيدر -->
+  <header>
+    <div class="logo-container">
+      <img src="logo.jpeg" alt="شعار النادي">
+      <div class="logo-text">نادي الحياة الصحية</div>
+    </div>
+
+    <nav>
+      <a href="#">الرئيسية</a>
+      <a href="#">من نحن</a>
+      <a href="#">الخدمات</a>
+      <a href="#">تواصل معنا</a>
+    </nav>
+
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="mobile-nav" id="mobileMenu">
+      <a href="#">الرئيسية</a>
+      <a href="#">من نحن</a>
+      <a href="#">الخدمات</a>
+      <a href="#">تواصل معنا</a>
+    </div>
+  </header>
+
+  <!-- ✅ المقدمة -->
+  <div class="hero-content">
+    <h1>نادي الحياة الصحية</h1>
+    <p>ابدأ رحلتك نحو نمط حياة صحي ومتوازن</p>
+    <button class="btn">انضم إلينا الآن</button>
+  </div>
+
+  <!-- ✅ المحتوى -->
+  <div class="content">
+    <h2 style="color: #ffffff;">ماذا نقدم؟</h2>
+    <div class="features">
+      <div class="feature-box">
+        <img src="mag4.jpg" alt="وجبات صحية" class="feature-image">
+        <div class="feature-title">وجبات صحية</div>
+        <div class="feature-desc">خطط تغذية متوازنة مصممة خصيصًا لصحتك وهدفك.</div>
+      </div>
+
+      <div class="feature-box">
+        <img src="mag3.jpg" alt="أجهزة النادي" class="feature-image">
+        <div class="feature-title">أجهزة النادي</div>
+        <div class="feature-desc">أحدث أجهزة اللياقة البدنية لمساعدتك على تحقيق أهدافك الرياضية.</div>
+      </div>
+
+      <div class="feature-box">
+        <img src="yoga.jpg" alt="جلسات يوغا" class="feature-image">
+        <div class="feature-title">جلسات اليوغا</div>
+        <div class="feature-desc">جلسات يوغا واسترخاء لتعزيز الصحة النفسية والتوازن الداخلي.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ الفوتر -->
+  <footer>
+    &copy; 2025 نادي الحياة الصحية. جميع الحقوق محفوظة.
+  </footer>
+
+  <!-- ✅ JavaScript للقائمة -->
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('show');
+    }
+  </script>
+
+</body>
+</html>
